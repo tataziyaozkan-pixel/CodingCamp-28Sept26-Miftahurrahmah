@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Expense & Budget Visualizer</title>
+  <link rel="stylesheet" href="css/style.css">
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Expense & Budget Visualizer</h1>
+      <!-- Fitur Opsional 1: Toggle Dark/Light Mode -->
+      <button id="themeToggleBtn" class="btn-secondary">🌙 Mode Gelap</button>
+    </header>
+
+    <!-- Display Total Balance -->
+    <section class="card balance-card">
+      <h2>TOTAL BALANCE</h2>
+      <div id="totalBalance" class="balance-amount">Rp 0</div>
+    </section>
+
+    <!-- Input Form -->
+    <section class="card">
+      <h3>Add Transaction</h3>
+      <form id="transactionForm">
+        <div class="form-group">
+          <label for="itemName">Item Name</label>
+          <input type="text" id="itemName" placeholder="Contoh: Nasi Goreng" required>
+        </div>
+
+        <div class="form-group">
+          <label for="amount">Amount (Rp)</label>
+          <input type="number" id="amount" placeholder="Contoh: 25000" min="1" required>
+        </div>
+
+        <div class="form-group">
+          <label for="category">Category</label>
+          <select id="category" required>
+            <option value="" disabled selected>Pilih Kategori</option>
+            <option value="Makanan">Makanan</option>
+            <option value="Transportasi">Transportasi</option>
+            <option value="Hiburan">Hiburan</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn-primary">Add Transaction</button>
+      </form>
+    </section>
+
+    <!-- Transactions & Chart Grid -->
+    <div class="grid-2col">
+      <!-- List Transactions -->
+      <section class="card">
+        <div class="list-header">
+          <h3>Transactions</h3>
+          <!-- Fitur Opsional 2: Sort Transactions -->
+          <select id="sortSelect" class="small-select">
+            <option value="default">Urutkan: Terbaru</option>
+            <option value="amount-high">Nominal: Tertinggi</option>
+            <option value="amount-low">Nominal: Terendah</option>
+            <option value="category">Kategori</option>
+          </select>
+        </div>
+        <ul id="transactionList" class="scrollable-list"></ul>
+      </section>
+
+      <!-- Pie Chart -->
+      <section class="card">
+        <h3>Spending by Category</h3>
+        <div class="chart-container">
+          <canvas id="spendingChart"></canvas>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
