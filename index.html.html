@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Expense & Budget Visualizer - Pro</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-theme="light">
+
+  <div class="app-container">
+    <header>
+      <div class="header-top">
+        <div>
+          <h1>Expense Visualizer</h1>
+          <p>Pencatatan Keuangan Pintar & Modern</p>
+        </div>
+        <div class="header-actions">
+          <button class="btn-theme" id="themeToggle" onclick="toggleTheme()" title="Ganti Tema">🌙</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Ringkasan Saldo -->
+    <div class="summary-grid">
+      <div class="summary-card">
+        <div class="label">Sisa Saldo</div>
+        <div class="value balance" id="totalBalance">Rp 0</div>
+      </div>
+      <div class="summary-card">
+        <div class="label">Total Pemasukan</div>
+        <div class="value income" id="totalIncome">Rp 0</div>
+      </div>
+      <div class="summary-card">
+        <div class="label">Total Pengeluaran</div>
+        <div class="value expense" id="totalExpense">Rp 0</div>
+      </div>
+    </div>
+
+    <!-- Main Grid -->
+    <div class="main-grid">
+      <!-- Input Form -->
+      <div class="card-box">
+        <h2>+ Transaksi Baru</h2>
+        <form id="txForm">
+          <div class="form-group">
+            <label for="desc">Deskripsi</label>
+            <input type="text" id="desc" class="form-control" placeholder="Contoh: Belanja Bulanan / Gaji" required />
+          </div>
+          <div class="form-group">
+            <label for="amount">Jumlah (Rp)</label>
+            <input type="number" id="amount" class="form-control" placeholder="0" min="1" required />
+          </div>
+          <div class="form-group">
+            <label for="type">Tipe Transaksi</label>
+            <select id="type" class="form-control">
+              <option value="expense">Pengeluaran</option>
+              <option value="income">Pemasukan</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="category">Kategori</label>
+            <select id="category" class="form-control">
+              <option value="Makanan">Makanan & Minuman</option>
+              <option value="Transportasi">Transportasi</option>
+              <option value="Belanja">Belanja</option>
+              <option value="Tagihan">Tagihan & Listrik</option>
+              <option value="Gaji">Gaji</option>
+              <option value="Lainnya">Lainnya</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="date">Tanggal</label>
+            <input type="date" id="date" class="form-control" required />
+          </div>
+          <button type="submit" class="btn-primary">Simpan Transaksi</button>
+        </form>
+      </div>
+
+      <!-- Chart Section -->
+      <div class="card-box">
+        <h2>Statistik Pengeluaran</h2>
+        <div class="chart-container">
+          <canvas id="categoryChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- Transaction List -->
+    <div class="card-box">
+      <div class="list-header">
+        <h2>Riwayat Transaksi</h2>
+        <button class="btn-export" onclick="exportToCSV()">📥 Ekspor CSV</button>
+      </div>
+      
+      <div class="list-tools">
+        <input type="text" id="searchInput" class="form-control search-input" placeholder="Cari transaksi..." oninput="render()" />
+        <select id="filterType" class="form-control" style="width: auto;" onchange="render()">
+          <option value="all">Semua Tipe</option>
+          <option value="income">Pemasukan</option>
+          <option value="expense">Pengeluaran</option>
+        </select>
+      </div>
+
+      <ul id="txList"></ul>
+
+      <div class="danger-zone">
+        <button class="btn-clear" onclick="clearData()">Hapus Semua Data</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
